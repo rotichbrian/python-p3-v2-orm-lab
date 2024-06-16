@@ -54,8 +54,7 @@ class Employee:
         if type(department_id) is int and Department.find_by_id(department_id):
             self._department_id = department_id
         else:
-            raise ValueError(
-                "department_id must reference a department in the database")
+            raise ValueError("department_id must reference a department in the database")
 
     @classmethod
     def create_table(cls):
@@ -187,4 +186,5 @@ class Employee:
 
     def reviews(self):
         """Return list of reviews associated with current employee"""
-        pass
+        from review import Review
+        return [review for review in Review.get_all() if review.employee_id == self.id]
